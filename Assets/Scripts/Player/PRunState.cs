@@ -34,7 +34,11 @@ namespace Player
         {
             
             base.UpdateLogic();
-
+            if (Mathf.Abs(_verticalInput) <= Mathf.Epsilon &&
+                Mathf.Abs(_horizontalInput) <= Mathf.Epsilon)
+            {
+                _pStateMachine.ChangeState(_pStateMachine._pIdleState);
+            }
 
         }
         

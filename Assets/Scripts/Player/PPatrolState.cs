@@ -7,8 +7,8 @@ namespace Player
     public class PPatrolState : PAllStates
     {
         
-        protected static float _runSpeed = 5.75f; //player's speed when running
-        protected static float _speed = _runSpeed; //current player's speed
+        
+        
         
         public PPatrolState(string name, StateMachine stateMachine) : base(name, stateMachine)
         {
@@ -24,25 +24,14 @@ namespace Player
         {
             base.UpdateLogic();
             
-       
-            
-            
-            if (_pStateMachine.CurrentState() != _pStateMachine._pRunState)
+            if (_pStateMachine.CurrentState() != _pStateMachine._pJumpState)
             {
-                if (Mathf.Abs(_verticalInput) > Mathf.Epsilon ||
-                    Mathf.Abs(_horizontalInput) > Mathf.Epsilon)
+                if (_verticalInput > Mathf.Epsilon && _jumpCnt == 0)
                 {
-                    _pStateMachine.ChangeState(_pStateMachine._pRunState);
+                    _pStateMachine.ChangeState(_pStateMachine._pJumpState);
                 }
             }
-            else if (_pStateMachine.CurrentState() != _pStateMachine._pIdleState)
-            {
-                if (Mathf.Abs(_verticalInput) <= Mathf.Epsilon &&
-                    Mathf.Abs(_horizontalInput) <= Mathf.Epsilon)
-                {
-                    _pStateMachine.ChangeState(_pStateMachine._pIdleState);
-                }
-            }
+            
             
         }
     }

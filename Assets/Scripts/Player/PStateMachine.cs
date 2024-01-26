@@ -22,6 +22,8 @@ namespace Player
         [HideInInspector] public PIdleState _pIdleState;
         [HideInInspector] public PRunState _pRunState;
          [HideInInspector] public PAllStates _pAllStates;
+         [HideInInspector] public PJumpState _pJumpState;
+         [HideInInspector] public PFallState _pFallState;
 
         public AudioSource _audioSource;
         [FormerlySerializedAs("Something")] public Collider2D _collider2D;
@@ -54,8 +56,10 @@ namespace Player
             _pIdleState = new PIdleState("PIdleState", this);
             _pRunState = new PRunState("PRunState", this);
             _pAllStates = new PAllStates("PAllStates", this);
+            _pJumpState = new PJumpState("PJumpState", this);
+            _pFallState = new PFallState("PFallState", this);
 
-            
+
         }
         
         public void CheckComponentNull(Component component)

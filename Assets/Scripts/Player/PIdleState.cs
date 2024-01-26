@@ -16,6 +16,8 @@ namespace Player
         public override void Enter()
         {
             base.Enter();
+            _jumpCnt = 0;
+            
             //Slow the player down instead of stop immediately
             _rigidbody2D.velocity = _rigidbody2D.velocity * 0.0f;
             
@@ -27,7 +29,10 @@ namespace Player
         public override void UpdateLogic()
         {
             base.UpdateLogic();
-            
+            if (Mathf.Abs(_horizontalInput) > Mathf.Epsilon)
+            {
+                _pStateMachine.ChangeState(_pStateMachine._pRunState);
+            }
             
         }
 
