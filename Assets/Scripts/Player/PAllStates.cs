@@ -60,6 +60,8 @@ namespace Player
         {
             base.UpdateLogic();
 
+            _pStateMachine._isCrouch = false;
+            
             // if (Input.GetKeyDown(KeyCode.Escape))
             // {
             //     _pStateMachine.NotifyObservers(IEvent.OnGamePause);
@@ -69,6 +71,9 @@ namespace Player
             {
                 _horizontalInput = Input.GetAxis("Horizontal1");
                 _verticalInput = Input.GetAxis("Vertical1");
+
+                if (_verticalInput < -Mathf.Epsilon)
+                    _pStateMachine._isCrouch = true;
 
                 if (Input.GetKey(KeyCode.R))
                     _pStateMachine._magneticStateScript._magneticState = IMagnetic.Positive;
@@ -81,6 +86,9 @@ namespace Player
             {
                 _horizontalInput = Input.GetAxis("Horizontal2");
                 _verticalInput = Input.GetAxis("Vertical2");
+                
+                if (_verticalInput < -Mathf.Epsilon)
+                    _pStateMachine._isCrouch = true;
                 
                 if (Input.GetKey(KeyCode.Keypad1))
                     _pStateMachine._magneticStateScript._magneticState = IMagnetic.Positive;
