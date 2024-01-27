@@ -40,6 +40,7 @@ namespace Player
         public GameObject _otherPlayer;
         
         public MagneticState _magneticStateScript;
+        public Sprite[] _faceSprite;
 
         private float _forcePower = 160f;
         public float _ratioForcePower;
@@ -50,10 +51,11 @@ namespace Player
             Time.timeScale = 1f;
             _audioSource = GetComponent<AudioSource>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
             
             
             TryGetComponent<Animator>(out _animator);
-            TryGetComponent<SpriteRenderer>(out _spriteRenderer);
+            
             _self = this.gameObject;
             
             
@@ -68,12 +70,8 @@ namespace Player
 
             _magneticStateScript = GetComponent<MagneticState>();
             _circleCollider2D = GetComponent<CircleCollider2D>();
-
-            
-            
             
             CheckComponentNull(_animator);
-            CheckComponentNull(_spriteRenderer);
 
 
             _pIdleState = new PIdleState("PIdleState", this);

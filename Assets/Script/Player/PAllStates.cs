@@ -85,12 +85,19 @@ namespace Player
                     _pStateMachine._isCrouch = true;
                     _animator.SetBool(b_isCrouch, true);
                 }
-                    
+
 
                 if (Input.GetKeyDown(KeyCode.R))
+                {
                     _pStateMachine._magneticStateScript._magneticState = IMagnetic.Positive;
+                    _pStateMachine._spriteRenderer.sprite = _pStateMachine._faceSprite[1];
+                }
                 else if (Input.GetKeyDown(KeyCode.T))
+                {
                     _pStateMachine._magneticStateScript._magneticState = IMagnetic.Negative;
+                    _pStateMachine._spriteRenderer.sprite = _pStateMachine._faceSprite[0];
+                }
+                    
                 // else 
                     // _pStateMachine._magneticStateScript._magneticState = IMagnetic.None;
             }
@@ -104,12 +111,20 @@ namespace Player
                     _pStateMachine._isCrouch = true;
                     _animator.SetBool(b_isCrouch, true);
                 }
-                    
-                
+
+
                 if (Input.GetKeyDown(KeyCode.Keypad1))
+                {
                     _pStateMachine._magneticStateScript._magneticState = IMagnetic.Positive;
+                    _pStateMachine._spriteRenderer.sprite = _pStateMachine._faceSprite[1];
+                }
+                    
                 else if (Input.GetKeyDown(KeyCode.Keypad2))
+                {
                     _pStateMachine._magneticStateScript._magneticState = IMagnetic.Negative;
+                    _pStateMachine._spriteRenderer.sprite = _pStateMachine._faceSprite[0];
+                }
+                    
                 // else 
                 //     _pStateMachine._magneticStateScript._magneticState = IMagnetic.None;
             }
