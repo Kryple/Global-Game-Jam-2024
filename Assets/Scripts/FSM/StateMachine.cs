@@ -21,7 +21,7 @@ namespace FSM
 
 
 
-        void Update()
+        public void Update()
         {
             if (_currentState != null)
                 _currentState.UpdateLogic();
