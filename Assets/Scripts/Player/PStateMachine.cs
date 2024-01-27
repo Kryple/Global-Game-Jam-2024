@@ -5,7 +5,9 @@ using UnityEngine.UI;
 using System;
 using Core.Observer_Pattern;
 using FSM;
+using Unity.VisualScripting;
 using UnityEngine.Serialization;
+using StateMachine = FSM.StateMachine;
 
 namespace Player
 {
@@ -78,6 +80,13 @@ namespace Player
 
 
         }
+
+        new void Update()
+        {
+            base.Update();
+            if (DistanceToOtherPlayer() <= 4f)
+                CheckPushAndPull();
+        }
         
         public void CheckComponentNull(Component component)
         {
@@ -98,6 +107,12 @@ namespace Player
             ChangeState(_pIdleState);
         }
 
+        public float DistanceToOtherPlayer()
+        {
+            float dis = Vector2.Distance(_otherPlayer.transform.position, _self.transform.position);
+            return dis;
+        }
+
         public void OnNotify(IEvent @event)
         {
             
@@ -105,26 +120,33 @@ namespace Player
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            Debug.Log("whut");
-            if (other.CompareTag("Player1") || other.CompareTag("Player2"))
+            
+            
+        }
+
+        private void CheckPushAndPull()
+        {
+            // if (_otherPlayer.CompareTag("Player1") || _otherPlayer.CompareTag("Player2"))
+            // {
+            //     
+            // }
+            
+            if ((_otherPlayer.transform.GetComponent<MagneticState>()._magneticState == IMagnetic.None)
+                || (_magneticStateScript._magneticState == IMagnetic.None))
             {
-                if ((other.transform.GetComponent<MagneticState>()._magneticState == IMagnetic.None)
-                    || (_magneticStateScript._magneticState == IMagnetic.None))
-                {
                     
-                }
-                else if (other.GetComponent<MagneticState>()._magneticState != _magneticStateScript._magneticState)
-                {
-                    Vector2 forceDirection = other.transform.position - _self.transform.position;
+            }
+            else if (_otherPlayer.GetComponent<MagneticState>()._magneticState != _magneticStateScript._magneticState)
+            {
+                Vector2 forceDirection = _otherPlayer.transform.position - _self.transform.position;
                 
-                    _rigidbody2D.AddForce(forceDirection * _forcePower);
-                }
-                else if (other.GetComponent<MagneticState>()._magneticState == _magneticStateScript._magneticState)
-                {
-                    Vector2 forceDirection = _self.transform.position - other.transform.position  ;
+                _rigidbody2D.AddForce(forceDirection * _forcePower);
+            }
+            else if (_otherPlayer.GetComponent<MagneticState>()._magneticState == _magneticStateScript._magneticState)
+            {
+                Vector2 forceDirection = _self.transform.position - _otherPlayer.transform.position  ;
                 
-                    _rigidbody2D.AddForce(forceDirection * _forcePower);
-                }
+                _rigidbody2D.AddForce(forceDirection * _forcePower);
             }
         }
     }
