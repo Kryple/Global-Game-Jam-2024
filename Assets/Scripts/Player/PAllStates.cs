@@ -18,9 +18,9 @@ namespace Player
         protected SpriteRenderer _spriteRenderer;
         protected GameObject _self;
 
-        protected static float _horizontalInput; 
-        protected static float _verticalInput; 
-        protected static Vector2 _direction = new Vector2(); //the direction character is facing 
+        protected float _horizontalInput; 
+        protected float _verticalInput; 
+        protected Vector2 _direction = new Vector2(); //the direction character is facing 
         
         
         protected static float _runSpeed = 5.75f; //player's speed when running
@@ -28,8 +28,11 @@ namespace Player
         protected static float _jumpSpeed = _runSpeed * 4.5f;
         protected static float _tiltSpeed = _runSpeed / 2;
 
-        protected static int _jumpCnt = 0;
+        protected int _jumpCnt = 0;
+        protected int _playerId;
+        protected GameObject _otherPlayer;
         
+        protected MagneticState _magneticStateScript;
 
         public PAllStates(string name, StateMachine stateMachine) : base(name, stateMachine)
         {
@@ -48,25 +51,50 @@ namespace Player
             _spriteRenderer = _pStateMachine._spriteRenderer;
             _self = _pStateMachine._self;
 
-
-
+            _playerId = _pStateMachine._playerId;
+            _otherPlayer = _pStateMachine._otherPlayer;
+            
         }
 
         public override void UpdateLogic()
         {
             base.UpdateLogic();
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+            // if (Input.GetKeyDown(KeyCode.Escape))
+            // {
+            //     _pStateMachine.NotifyObservers(IEvent.OnGamePause);
+            // }
+
+            if (_self.CompareTag("Player1"))
             {
-                _pStateMachine.NotifyObservers(IEvent.OnGamePause);
+                _horizontalInput = Input.GetAxis("Horizontal1");
+                _verticalInput = Input.GetAxis("Vertical1");
+
+                if (Input.GetKey(KeyCode.R))
+                    _pStateMachine._magneticStateScript._magneticState = IMagnetic.Positive;
+                else if (Input.GetKey(KeyCode.T))
+                    _pStateMachine._magneticStateScript._magneticState = IMagnetic.Negative;
+                else 
+                    _pStateMachine._magneticStateScript._magneticState = IMagnetic.None;
+            }
+            else if (_self.CompareTag("Player2"))
+            {
+                _horizontalInput = Input.GetAxis("Horizontal2");
+                _verticalInput = Input.GetAxis("Vertical2");
+                
+                if (Input.GetKey(KeyCode.Keypad1))
+                    _pStateMachine._magneticStateScript._magneticState = IMagnetic.Positive;
+                else if (Input.GetKey(KeyCode.Keypad2))
+                    _pStateMachine._magneticStateScript._magneticState = IMagnetic.Negative;
+                else 
+                    _pStateMachine._magneticStateScript._magneticState = IMagnetic.None;
             }
             
-    
-            _horizontalInput = Input.GetAxis("Horizontal");
-            _verticalInput = Input.GetAxis("Vertical");
-
+            
             _direction = new Vector2(_horizontalInput, _verticalInput);
             _direction.Normalize();
+            
+            // Debug.Log(_direction);
         }
 
 
