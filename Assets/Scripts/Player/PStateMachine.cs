@@ -41,6 +41,7 @@ namespace Player
         public MagneticState _magneticStateScript;
 
         public float _forcePower = 12f;
+        public bool _isCrouch;
 
         private void Awake()
         {
@@ -138,15 +139,23 @@ namespace Player
             }
             else if (_otherPlayer.GetComponent<MagneticState>()._magneticState != _magneticStateScript._magneticState)
             {
-                Vector2 forceDirection = _otherPlayer.transform.position - _self.transform.position;
+
+                if (_isCrouch == false)
+                {
+                    Vector2 forceDirection = _otherPlayer.transform.position - _self.transform.position;
                 
-                _rigidbody2D.AddForce(forceDirection * _forcePower);
+                    _rigidbody2D.AddForce(forceDirection * _forcePower);    
+                }
+                
             }
             else if (_otherPlayer.GetComponent<MagneticState>()._magneticState == _magneticStateScript._magneticState)
             {
-                Vector2 forceDirection = _self.transform.position - _otherPlayer.transform.position  ;
+                if (_isCrouch == false)
+                {
+                    Vector2 forceDirection = _self.transform.position - _otherPlayer.transform.position  ;
                 
-                _rigidbody2D.AddForce(forceDirection * _forcePower);
+                    _rigidbody2D.AddForce(forceDirection * _forcePower);
+                }
             }
         }
     }
