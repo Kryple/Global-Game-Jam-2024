@@ -117,7 +117,12 @@ namespace Player
             
             _direction = new Vector2(_horizontalInput, _verticalInput);
             _direction.Normalize();
-            
+
+            if (_direction.x < -Mathf.Epsilon)
+                _self.transform.localScale = new Vector3(-1f, 1f, 1f);
+            else if (_direction.x > Mathf.Epsilon)
+                _self.transform.localScale = new Vector3(1f, 1f, 1f);
+
             // Debug.Log(_direction);
         }
 
