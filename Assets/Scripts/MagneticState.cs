@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MagneticState : MonoBehaviour
 {
-    public IMagnetic _magneticState;
+    public IMagnetic _magneticState = IMagnetic.Negative;
 
 
     void Start()

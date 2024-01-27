@@ -160,16 +160,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 0}
-  _collider2D: {fileID: 0}
   _rigidbody2D: {fileID: 0}
   _animator: {fileID: 0}
   _spriteRenderer: {fileID: 0}
   _walkingSound: {fileID: 0}
   _self: {fileID: 0}
+  _circleCollider2D: {fileID: 0}
   _playerId: 1
   _otherPlayer: {fileID: 0}
   _magneticStateScript: {fileID: 0}
-  _forcePower: 12
+  _ratioForcePower: 0
+  _isCrouch: 0
 --- !u!82 &8724851013024652487
 AudioSource:
   m_ObjectHideFlags: 0
@@ -340,4 +341,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79f022f94ec392a4f827265fb48365c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _magneticState: 0
+  _magneticState: 1
