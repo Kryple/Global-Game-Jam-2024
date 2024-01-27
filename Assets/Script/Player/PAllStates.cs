@@ -25,7 +25,7 @@ namespace Player
         
         protected static float _runSpeed = 5.75f; //player's speed when running
         protected static float _speed = _runSpeed; //current player's speed
-        protected static float _jumpSpeed = _runSpeed * 4.5f;
+        protected static float _jumpSpeed = _runSpeed * 3.8f;
         protected static float _tiltSpeed = _runSpeed / 2;
 
         protected int _jumpCnt = 0;
