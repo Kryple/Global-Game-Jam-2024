@@ -144,6 +144,8 @@ namespace Player
                     forceDirection.Normalize();
                     _ratioForcePower = distance / _circleCollider2D.radius;
                     Mathf.Clamp(_ratioForcePower, 0.5f, 1f);
+                    
+                    Debug.Log("force: " + _ratioForcePower);
                 
                     _rigidbody2D.AddForce(forceDirection * _forcePower * _ratioForcePower);    
                 }

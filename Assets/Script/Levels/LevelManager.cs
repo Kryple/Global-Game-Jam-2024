@@ -32,24 +32,33 @@ public class LevelManager : MonoBehaviour
 			});
 		}
 
-		this.playButton.onClick.AddListener(() =>
+		if (playButton != null)
 		{
-			this.mainMenu.SetActive(false);
+			this.playButton.onClick.AddListener(() =>
+			{
+				this.mainMenu.SetActive(false);
 
-			this.listLevelMenu.SetActive(true);
-		});
+				this.listLevelMenu.SetActive(true);
+			});
+		}
 
-		this.quitButton.onClick.AddListener(() =>
+		if (quitButton != null)
 		{
-			Application.Quit();
-		});
+			this.quitButton.onClick.AddListener(() =>
+			{
+				Application.Quit();
+			});
+		}
 
-		this.returnButton.onClick.AddListener(() =>
+		if (returnButton != null)
 		{
-			this.mainMenu.SetActive(true);
+			this.returnButton.onClick.AddListener(() =>
+			{
+				this.mainMenu.SetActive(true);
 
-			this.listLevelMenu.SetActive(false);
-		});
+				this.listLevelMenu.SetActive(false);
+			});
+		}
 
 		Time.timeScale = 1.0f;
 	}

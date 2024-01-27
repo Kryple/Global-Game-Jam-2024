@@ -78,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -380686167
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 632184270, guid: b97effc4ed251d446aa6fd8c8ed3a5e1, type: 3}
   m_Color: {r: 0.9528302, g: 0.38113207, b: 0.38113207, a: 1}
@@ -295,9 +295,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.090055466, y: 0}
+  m_Offset: {x: -0.0012907982, y: 0}
   serializedVersion: 2
-  m_Radius: 4.0185647
+  m_Radius: 4.9929304
 --- !u!114 &2227013886020657809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,8 +426,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -380686167
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: f0e8dc8f4fc340b49a6fd5efbf7c8c85, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

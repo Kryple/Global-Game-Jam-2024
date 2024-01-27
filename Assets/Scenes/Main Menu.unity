@@ -1772,6 +1772,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 183470679}
     - target: {fileID: 7951349291725523345, guid: d756264920ce0f240b98058175e2ae2d, type: 3}
+      propertyPath: _pausingScreen
+      value: 
+      objectReference: {fileID: 183470679}
+    - target: {fileID: 7951349291725523345, guid: d756264920ce0f240b98058175e2ae2d, type: 3}
       propertyPath: gameButtons.Array.size
       value: 4
       objectReference: {fileID: 0}
