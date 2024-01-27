@@ -32,8 +32,13 @@ namespace Player
         public SpriteRenderer _spriteRenderer;
         public AudioClip _walkingSound;
         public GameObject _self;
+
+        public int _playerId;
+        public GameObject _otherPlayer;
         
-        
+        public MagneticState _magneticStateScript;
+
+        public float _forcePower = 12f;
 
         private void Awake()
         {
@@ -44,6 +49,18 @@ namespace Player
             TryGetComponent<Animator>(out _animator);
             TryGetComponent<SpriteRenderer>(out _spriteRenderer);
             _self = this.gameObject;
+            
+            
+            if (this.CompareTag("Player1"))
+            {
+                _otherPlayer = GameObject.FindWithTag("Player2");
+            }
+            else if (this.CompareTag("Player2"))
+            {
+                _otherPlayer = GameObject.FindWithTag("Player1");
+            }
+
+            _magneticStateScript = GetComponent<MagneticState>();
          
 
             CheckComponentNull(_audioSource);
@@ -85,12 +102,30 @@ namespace Player
         {
             
         }
-        
-        
-        
-        
 
-
-
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            Debug.Log("whut");
+            if (other.CompareTag("Player1") || other.CompareTag("Player2"))
+            {
+                if ((other.transform.GetComponent<MagneticState>()._magneticState == IMagnetic.None)
+                    || (_magneticStateScript._magneticState == IMagnetic.None))
+                {
+                    
+                }
+                else if (other.GetComponent<MagneticState>()._magneticState != _magneticStateScript._magneticState)
+                {
+                    Vector2 forceDirection = other.transform.position - _self.transform.position;
+                
+                    _rigidbody2D.AddForce(forceDirection * _forcePower);
+                }
+                else if (other.GetComponent<MagneticState>()._magneticState == _magneticStateScript._magneticState)
+                {
+                    Vector2 forceDirection = _self.transform.position - other.transform.position  ;
+                
+                    _rigidbody2D.AddForce(forceDirection * _forcePower);
+                }
+            }
+        }
     }
 }
