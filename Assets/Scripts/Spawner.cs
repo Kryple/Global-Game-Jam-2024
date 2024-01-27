@@ -9,6 +9,11 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
+        SpawnPlayer();
+    }
+
+    public void SpawnPlayer()
+    {
         SpawnObject.transform.position = transform.position;
     }
 }

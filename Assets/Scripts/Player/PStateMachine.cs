@@ -28,27 +28,30 @@ namespace Player
          [HideInInspector] public PFallState _pFallState;
 
         public AudioSource _audioSource;
-        [FormerlySerializedAs("Something")] public Collider2D _collider2D;
+        
         public Rigidbody2D _rigidbody2D;
         public Animator _animator;
         public SpriteRenderer _spriteRenderer;
         public AudioClip _walkingSound;
         public GameObject _self;
+        public CircleCollider2D _circleCollider2D;
 
         public int _playerId;
         public GameObject _otherPlayer;
         
         public MagneticState _magneticStateScript;
 
-        public float _forcePower = 12f;
+        private float _forcePower = 240f;
+        public float _ratioForcePower;
         public bool _isCrouch;
 
         private void Awake()
         {
             Time.timeScale = 1f;
-            TryGetComponent<AudioSource>(out _audioSource);
-            TryGetComponent<Collider2D>(out _collider2D);
-            TryGetComponent<Rigidbody2D>(out _rigidbody2D);
+            _audioSource = GetComponent<AudioSource>();
+            _rigidbody2D = GetComponent<Rigidbody2D>();
+            
+            
             TryGetComponent<Animator>(out _animator);
             TryGetComponent<SpriteRenderer>(out _spriteRenderer);
             _self = this.gameObject;
@@ -64,11 +67,11 @@ namespace Player
             }
 
             _magneticStateScript = GetComponent<MagneticState>();
-         
+            _circleCollider2D = GetComponent<CircleCollider2D>();
 
-            CheckComponentNull(_audioSource);
-            CheckComponentNull(_collider2D);
-            CheckComponentNull(_rigidbody2D);
+            
+            
+            
             CheckComponentNull(_animator);
             CheckComponentNull(_spriteRenderer);
 
@@ -85,7 +88,7 @@ namespace Player
         new void Update()
         {
             base.Update();
-            if (DistanceToOtherPlayer() <= 4f)
+            if (DistanceToOtherPlayer() <= _circleCollider2D.radius)
                 CheckPushAndPull();
         }
         
@@ -127,10 +130,7 @@ namespace Player
 
         private void CheckPushAndPull()
         {
-            // if (_otherPlayer.CompareTag("Player1") || _otherPlayer.CompareTag("Player2"))
-            // {
-            //     
-            // }
+            float distance = DistanceToOtherPlayer();
             
             if ((_otherPlayer.transform.GetComponent<MagneticState>()._magneticState == IMagnetic.None)
                 || (_magneticStateScript._magneticState == IMagnetic.None))
@@ -142,9 +142,12 @@ namespace Player
 
                 if (_isCrouch == false)
                 {
-                    Vector2 forceDirection = _otherPlayer.transform.position - _self.transform.position;
+                    Vector2 forceDirection = (_otherPlayer.transform.position - _self.transform.position);
+                    forceDirection.Normalize();
+                    _ratioForcePower = distance / _circleCollider2D.radius;
+                    Mathf.Clamp(_ratioForcePower, 0.5f, 1f);
                 
-                    _rigidbody2D.AddForce(forceDirection * _forcePower);    
+                    _rigidbody2D.AddForce(forceDirection * _forcePower * _ratioForcePower);    
                 }
                 
             }
@@ -153,8 +156,11 @@ namespace Player
                 if (_isCrouch == false)
                 {
                     Vector2 forceDirection = _self.transform.position - _otherPlayer.transform.position  ;
-                
-                    _rigidbody2D.AddForce(forceDirection * _forcePower);
+                    forceDirection.Normalize();
+
+                    _ratioForcePower = distance / _circleCollider2D.radius;
+                    Mathf.Clamp(_ratioForcePower, 0.5f, 1f);
+                    _rigidbody2D.AddForce(forceDirection * _forcePower * _ratioForcePower);
                 }
             }
         }

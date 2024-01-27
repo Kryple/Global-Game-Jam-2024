@@ -12,11 +12,11 @@ namespace Player
     {
         protected PStateMachine _pStateMachine;
         protected AudioSource _audioSource;
-        protected Collider2D _collider2D;
         protected Rigidbody2D _rigidbody2D;
         protected Animator _animator;
         protected SpriteRenderer _spriteRenderer;
         protected GameObject _self;
+        protected CircleCollider2D _circleCollider2D;
 
         protected float _horizontalInput; 
         protected float _verticalInput; 
@@ -45,7 +45,6 @@ namespace Player
             _pStateMachine = (PStateMachine) stateMachine;
 
             _audioSource = _pStateMachine._audioSource;
-            _collider2D = _pStateMachine._collider2D;
             _rigidbody2D = _pStateMachine._rigidbody2D;
             _animator = _pStateMachine._animator;
             _spriteRenderer = _pStateMachine._spriteRenderer;
@@ -53,7 +52,8 @@ namespace Player
 
             _playerId = _pStateMachine._playerId;
             _otherPlayer = _pStateMachine._otherPlayer;
-            
+            _circleCollider2D = _pStateMachine._circleCollider2D;
+
         }
 
         public override void UpdateLogic()
@@ -75,12 +75,12 @@ namespace Player
                 if (_verticalInput < -Mathf.Epsilon)
                     _pStateMachine._isCrouch = true;
 
-                if (Input.GetKey(KeyCode.R))
+                if (Input.GetKeyDown(KeyCode.R))
                     _pStateMachine._magneticStateScript._magneticState = IMagnetic.Positive;
-                else if (Input.GetKey(KeyCode.T))
+                else if (Input.GetKeyDown(KeyCode.T))
                     _pStateMachine._magneticStateScript._magneticState = IMagnetic.Negative;
-                else 
-                    _pStateMachine._magneticStateScript._magneticState = IMagnetic.None;
+                // else 
+                    // _pStateMachine._magneticStateScript._magneticState = IMagnetic.None;
             }
             else if (_self.CompareTag("Player2"))
             {
@@ -90,12 +90,12 @@ namespace Player
                 if (_verticalInput < -Mathf.Epsilon)
                     _pStateMachine._isCrouch = true;
                 
-                if (Input.GetKey(KeyCode.Keypad1))
+                if (Input.GetKeyDown(KeyCode.Keypad1))
                     _pStateMachine._magneticStateScript._magneticState = IMagnetic.Positive;
-                else if (Input.GetKey(KeyCode.Keypad2))
+                else if (Input.GetKeyDown(KeyCode.Keypad2))
                     _pStateMachine._magneticStateScript._magneticState = IMagnetic.Negative;
-                else 
-                    _pStateMachine._magneticStateScript._magneticState = IMagnetic.None;
+                // else 
+                //     _pStateMachine._magneticStateScript._magneticState = IMagnetic.None;
             }
             
             
