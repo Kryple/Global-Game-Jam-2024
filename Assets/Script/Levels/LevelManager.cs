@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,12 @@ public class LevelManager : MonoBehaviour
 
 	[SerializeField] private List<Button> gameButtons;
 
+	[SerializeField] private GameObject _pausingScreen;
+
 	public void Awake()
 	{
+		_pausingScreen.SetActive(false);
+		
 		int i = 1;
 		foreach (Button gameButton in this.gameButtons)
 		{
@@ -49,8 +54,26 @@ public class LevelManager : MonoBehaviour
 		Time.timeScale = 1.0f;
 	}
 
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+			PauseTheGame();
+	}
+
 	public void LoadLevel(int levelToLoad)
     {
         this.GetComponent<LevelLoader>().LoadLevel(levelToLoad);
     }
+
+	public void PauseTheGame()
+	{
+		Time.timeScale = 0;
+		_pausingScreen.SetActive(true);
+	}
+
+	public void ContinueTheGame()
+	{
+		Time.timeScale = 1f;
+		_pausingScreen.SetActive(false);
+	}
 }
